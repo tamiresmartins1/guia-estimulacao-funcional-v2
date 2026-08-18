@@ -341,19 +341,19 @@
         const questions = [
             {
                 id: "elegibilidade",
-                titulo: "1. Elegibilidade do Paciente",
-                descricao: "Avalie se o paciente atende aos critérios de elegibilidade",
+                titulo: "O paciente é elegível para a avaliação?",
+                descricao: "",
                 options: [
-                    { id: "elegivel", emoji: "✅", titulo: "Elegível", desc: "Atende critérios clínicos para programa de estimulação" },
-                    { id: "elegivel_barreiras", emoji: "⚠️", titulo: "Elegível com barreiras", desc: "Atende critérios, porém com limitações administrativas ou clínicas" },
-                    { id: "nao_elegivel", emoji: "❌", titulo: "Não elegível", desc: "Não cumpre critérios mínimos de elegibilidade" }
+                    { id: "elegivel", emoji: "👤", titulo: "Paciente elegível", desc: "Baixo risco, poucas barreiras" },
+                    { id: "elegivel_barreiras", emoji: "👤", titulo: "Elegível com barreiras", desc: "Benefícios presentes, mas riscos elevados" },
+                    { id: "nao_elegivel", emoji: "👤", titulo: "Não elegível", desc: "Riscos superam os benefícios" }
                 ],
                 showFn: () => true
             },
             {
                 id: "estabilidade",
-                titulo: "2. Estabilidade Clínica",
-                descricao: "Avalie a estabilidade clínica do paciente",
+                titulo: "Como está a estabilidade clínica do paciente?",
+                descricao: "",
                 options: [
                     { id: "estavel", emoji: "💪", titulo: "Estável", desc: "Sem alterações vitais, clínica controlada" },
                     { id: "instavel", emoji: "⚠️", titulo: "Instável", desc: "Alterações vitais, variabilidade clínica importante" }
@@ -362,32 +362,32 @@
             },
             {
                 id: "neurologica",
-                titulo: "3. Avaliação Neurológica",
-                descricao: "Avalie o estado neurológico do paciente",
+                titulo: "Como está a avaliação neurológica do paciente?",
+                descricao: "",
                 options: [
-                    { id: "orientado", emoji: "🧠", titulo: "Orientado", desc: "Orienta-se em pessoa, espaço e tempo; comanda seguros" },
-                    { id: "vigil_desorientado", emoji: "😴", titulo: "Vigil, mas desorientado", desc: "Acorda com estímulo verbal/tátil, mas desorientado" },
-                    { id: "irresponsivo", emoji: "🚨", titulo: "Irresponsivo", desc: "Não responde a estímulos ou ausência de abertura ocular" }
+                    { id: "orientado", emoji: "🧠", titulo: "Orientado", desc: "Glasgow 15, compreende comandos" },
+                    { id: "vigil_desorientado", emoji: "😴", titulo: "Vigil, mas desorientado", desc: "Colaborativo parcialmente — Glasgow 12–14" },
+                    { id: "irresponsivo", emoji: "🚨", titulo: "Irresponsivo", desc: "Coma; sedação profunda — Glasgow < 8" }
                 ],
                 showFn: (answers) => answers.elegibilidade && answers.elegibilidade !== "nao_elegivel" && answers.estabilidade === "estavel"
             },
             {
                 id: "nivel_funcional",
-                titulo: "4. Nível Funcional Atual",
-                descricao: "Indique o maior nível funcional que o paciente consegue realizar",
+                titulo: "Qual é o nível de mobilidade funcional atual do paciente?",
+                descricao: "",
                 options: [
-                    { id: "restrito_leito", emoji: "🛏️", titulo: "Restrito ao leito", desc: "Acamado, realiza mudanças de posição apenas com auxílio" },
-                    { id: "troca_decubitos", emoji: "↔️", titulo: "Troca de decúbito", desc: "Realiza mudanças de posição, orienta-se no leito" },
-                    { id: "sedestacao", emoji: "🪑", titulo: "Assume sedestação", desc: "Transferências para cadeira, permanece sentado com ou sem apoio" },
-                    { id: "bipedestacao", emoji: "🧑", titulo: "Assume bipedestação", desc: "Consegue ficar em pé com ou sem auxílio" },
-                    { id: "deambula", emoji: "🚶", titulo: "Deambula", desc: "Realiza marcha com ou sem dispositivo de auxílio" }
+                    { id: "restrito_leito", emoji: "🛏️", titulo: "Restrito ao leito", desc: "Não realiza trocas posturais independentemente" },
+                    { id: "troca_decubitos", emoji: "↔️", titulo: "Troca decúbitos no leito", desc: "Realiza trocas posturais de forma independente" },
+                    { id: "sedestacao", emoji: "🪑", titulo: "Assume Sedestação", desc: "Senta na beira do leito, com ou sem auxílio" },
+                    { id: "bipedestacao", emoji: "🧑", titulo: "Assume Bipedestação", desc: "Fica em pé, com ou sem auxílio" },
+                    { id: "deambula", emoji: "🚶", titulo: "Deambula", desc: "Caminha, com ou sem auxílio" }
                 ],
                 showFn: (answers) => answers.elegibilidade && answers.elegibilidade !== "nao_elegivel" && answers.estabilidade === "estavel" && answers.neurologica && answers.neurologica !== "irresponsivo"
             },
             {
                 id: "ativacao_postural",
-                titulo: "5. Ativação Postural",
-                descricao: "Avalie a capacidade de ativação postural do paciente",
+                titulo: "Como é a ativação dos músculos posturais?",
+                descricao: "",
                 options: [],
                 showFn: (answers) => answers.elegibilidade && answers.elegibilidade !== "nao_elegivel" && answers.estabilidade === "estavel" && answers.neurologica && answers.neurologica !== "irresponsivo" && answers.nivel_funcional
             }
