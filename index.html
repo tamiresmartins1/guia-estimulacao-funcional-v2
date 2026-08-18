@@ -135,9 +135,8 @@
         .result-box {
             background: linear-gradient(135deg, #0B4F6C 0%, #0D7B9C 100%);
             color: white;
-            padding: 50px 30px;
+            padding: 40px 30px;
             border-radius: 16px;
-            text-align: center;
             margin-top: 40px;
             box-shadow: 0 15px 40px rgba(11, 79, 108, 0.25);
             animation: slideDown 0.5s ease-out;
@@ -152,7 +151,7 @@
         }
 
         .result-value {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 700;
             line-height: 1.4;
             margin-bottom: 30px;
@@ -666,25 +665,27 @@
 
             const resultHTML = `
                 <div class="result-box">
-                    <div class="result-label">Meta Funcional</div>
-                    <div class="result-value">${metaFuncional}</div>
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div class="result-label">META FUNCIONAL</div>
+                        <div class="result-value">${metaFuncional}</div>
+                    </div>
 
                     <div class="plan-section">
-                        <div class="plan-title">Plano Terapêutico Sugerido</div>
+                        <div class="plan-title">PLANO TERAPÊUTICO SUGERIDO</div>
                         <ul class="plan-list">
                             ${plan.map(item => `<li>${item}</li>`).join("")}
                         </ul>
                     </div>
 
                     <div class="copy-section">
-                        <div class="copy-title">Prontuário</div>
+                        <div class="copy-title">DOCUMENTO CLÍNICO</div>
                         <div class="copy-box">
                             <textarea id="textareaResult" readonly>${generateProntuarioText(metaFuncional, plan)}</textarea>
                         </div>
-                        <button class="copy-btn" onclick="copyToClipboard()">📋 Copiar para Clipboard</button>
+                        <button class="copy-btn" onclick="copyToClipboard()">Copiar para Clipboard</button>
                     </div>
 
-                    <button class="reset-btn" onclick="resetForm()">↻ Nova Avaliação</button>
+                    <button class="reset-btn" onclick="resetForm()">Nova Avaliação</button>
                 </div>
             `;
 
