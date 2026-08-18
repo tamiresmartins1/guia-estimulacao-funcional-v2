@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Estimulação Funcional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #F5F7FA 0%, #FFFFFF 100%);
+            min-height: 100vh;
+            color: #1F2937;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 32px;
+            color: #0B4F6C;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 15px;
+            color: #6B7280;
+        }
+
+        .form-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #E5E7EB;
+        }
+
+        .form-section h2 {
+            font-size: 16px;
+            color: #0B4F6C;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .form-section p {
+            font-size: 13px;
+            color: #6B7280;
+            margin-bottom: 16px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .question-group {
+            margin-bottom: 20px;
+        }
+
+        .question-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-card {
+            padding: 12px 14px;
+            border: 2px solid #E5E7EB;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .option-card:hover {
+            border-color: #0B4F6C;
+            background: #F0F9FC;
+        }
+
+        .option-card.selected {
+            border-color: #0B4F6C;
+            background: #E8F4F8;
+            box-shadow: 0 2px 8px rgba(11, 79, 108, 0.12);
+        }
+
+        .option-emoji {
+            font-size: 20px;
+            flex-shrink: 0;
+            line-height: 1.2;
+        }
+
+        .option-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .option-content h3 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1F2937;
+            margin-bottom: 2px;
+        }
+
+        .option-content p {
+            font-size: 12px;
+            color: #6B7280;
+        }
+
+        .result-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #E5E7EB;
+        }
+
+        .result-section.hidden {
+            display: none;
+        }
+
+        .result-title {
+            font-size: 18px;
+            color: #0B4F6C;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .meta-box {
+            background: linear-gradient(135deg, #0B4F6C 0%, #0D7B9C 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.9;
+            margin-bottom: 6px;
+        }
+
+        .meta-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .suggestion-box {
+            background: #F3F7FF;
+            border-left: 4px solid #0B4F6C;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .suggestion-label {
+            font-size: 12px;
+            color: #0B4F6C;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .suggestion-list {
+            list-style: none;
+        }
+
+        .suggestion-list li {
+            padding: 8px 0;
+            font-size: 14px;
+            color: #1F2937;
+            line-height: 1.5;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .suggestion-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #0B4F6C;
+            font-weight: 600;
+        }
+
+        .answers-summary {
+            background: #F9FAFB;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .answers-summary strong {
+            color: #1F2937;
+        }
+
+        .copy-box {
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .copy-box textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 11px;
+            color: #1F2937;
+            resize: none;
+            outline: none;
+            line-height: 1.5;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #0B4F6C;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: #0D7B9C;
+            transform: scale(1.05);
+        }
+
+        .copy-feedback {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10B981;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            animation: slideInRight 0.3s ease-out forwards;
+            z-index: 1000;
+        }
+
+        .reset-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #E8F4F8;
+            color: #0B4F6C;
+            border: 2px solid #0B4F6C;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .reset-btn:hover {
+            background: #D0E8F0;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-wrapper {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            header h1 {
+                font-size: 26px;
+            }
+
+            .form-section, .result-section {
+                padding: 20px;
+            }
+
+            .option-card {
+                padding: 10px 12px;
+            }
+
+            .option-emoji {
+                font-size: 18px;
+            }
+
+            .option-content h3 {
+                font-size: 12px;
+            }
+
+            .option-content p {
+                font-size: 11px;
+            }
+
+            .copy-feedback {
+                top: 10px;
+                right: 10px;
+                left: 10px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 Guia de Estimulação Funcional</h1>
+            <p>Calculadora de fisioterapia — sugestões personalizadas para sua prática clínica</p>
+        </header>
+
+        <div class="form-wrapper">
+            <!-- Coluna de Perguntas -->
+            <div>
+                <!-- P1: Elegibilidade -->
+                <div class="form-section" id="secao-elegibilidade">
+                    <h2>1. Elegibilidade</h2>
+                    <p>Avalie se o paciente atende aos critérios</p>
+                    <div class="question-group">
+                        <div class="options" id="opcoes-elegibilidade"></div>
+                    </div>
+                </div>
+
+                <!-- P2: Estabilidade (condicional) -->
+                <div class="form-section hidden" id="secao-estabilidade">
+                    <h2>2. Estabilidade Clínica</h2>
+                    <p>Avalie a estabilidade clínica</p>
+                    <div class="question-group">
+                        <div class="options" id="opcoes-estabilidade"></div>
+                    </div>
+                </div>
+
+                <!-- P3: Neurológica (condicional) -->
+                <div class="form-section hidden" id="secao-neurologica">
+                    <h2>3. Avaliação Neurológica</h2>
+                    <p>Avalie o estado neurológico</p>
+                    <div class="question-group">
+                        <div class="options" id="opcoes-neurologica"></div>
+                    </div>
+                </div>
+
+                <!-- P4: Nível Funcional (condicional) -->
+                <div class="form-section hidden" id="secao-nivel_funcional">
+                    <h2>4. Nível Funcional</h2>
+                    <p>Indique o maior nível funcional</p>
+                    <div class="question-group">
+                        <div class="options" id="opcoes-nivel_funcional"></div>
+                    </div>
+                </div>
+
+                <!-- P5: Ativação Postural (condicional) -->
+                <div class="form-section hidden" id="secao-ativacao_postural">
+                    <h2>5. Ativação Postural</h2>
+                    <p>Avalie a ativação postural</p>
+                    <div class="question-group">
+                        <div class="options" id="opcoes-ativacao_postural"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna de Resultado -->
+            <div>
+                <div class="result-section hidden" id="resultado">
+                    <div class="result-title">💡 Sugestão Personalizada</div>
+
+                    <div class="meta-box">
+                        <div class="meta-label">Meta Funcional</div>
+                        <div class="meta-value" id="metaFuncional">-</div>
+                    </div>
+
+                    <div class="suggestion-box">
+                        <div class="suggestion-label">Plano Terapêutico Sugerido</div>
+                        <ul class="suggestion-list" id="planList"></ul>
+                    </div>
+
+                    <div class="answers-summary" id="answersGrid"></div>
+
+                    <div class="copy-box">
+                        <textarea id="textareaResult" readonly></textarea>
+                        <button class="copy-btn" onclick="copyToClipboard()">Copiar</button>
+                    </div>
+
+                    <button class="reset-btn" onclick="resetForm()">↻ Nova Avaliação</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = {
+            elegibilidade: {
+                options: [
+                    { id: "elegivel", emoji: "✅", titulo: "Elegível", desc: "Paciente elegível" },
+                    { id: "elegivel_barreiras", emoji: "⚠️", titulo: "Elegível com barreiras", desc: "Atende critérios, mas apresenta barreiras" },
+                    { id: "nao_elegivel", emoji: "❌", titulo: "Não elegível", desc: "Não atende aos critérios" }
+                ]
+            },
+            estabilidade: {
+                options: [
+                    { id: "estavel", emoji: "💪", titulo: "Estável", desc: "Clinicamente estável" },
+                    { id: "instavel", emoji: "⚠️", titulo: "Instável", desc: "Clinicamente instável" }
+                ]
+            },
+            neurologica: {
+                options: [
+                    { id: "orientado", emoji: "🧠", titulo: "Orientado", desc: "Orientado em tempo e espaço" },
+                    { id: "vigil_desorientado", emoji: "😴", titulo: "Vigil, desorientado", desc: "Acorda facilmente, mas desorientado" },
+                    { id: "irresponsivo", emoji: "🚨", titulo: "Irresponsivo", desc: "Sem resposta ou sem abertura ocular" }
+                ]
+            },
+            nivel_funcional: {
+                options: [
+                    { id: "restrito_leito", emoji: "🛏️", titulo: "Restrito ao leito", desc: "Não sai do leito" },
+                    { id: "troca_decubitos", emoji: "↔️", titulo: "Troca de decúbito", desc: "Realiza mudanças de posição" },
+                    { id: "sedestacao", emoji: "🪑", titulo: "Assume sedestação", desc: "Consegue ficar sentado" },
+                    { id: "bipedestacao", emoji: "🧑", titulo: "Assume bipedestação", desc: "Consegue ficar em pé" },
+                    { id: "deambula", emoji: "🚶", titulo: "Deambula", desc: "Consegue caminhar" }
+                ]
+            },
+            ativacao_postural: {
+                options: []
+            }
+        };
+
+        const labels = {
+            elegivel: "Elegível",
+            elegivel_barreiras: "Elegível com barreiras",
+            nao_elegivel: "Não elegível",
+            estavel: "Estável",
+            instavel: "Instável",
+            orientado: "Orientado",
+            vigil_desorientado: "Vigil, desorientado",
+            irresponsivo: "Irresponsivo",
+            restrito_leito: "Restrito ao leito",
+            troca_decubitos: "Troca decúbito",
+            sedestacao: "Sedestação",
+            bipedestacao: "Bipedestação",
+            deambula: "Deambula",
+            nao_demonstra: "Não demonstra",
+            demonstra_falhas: "Com falhas",
+            ativa_adequadamente: "Ativa adequadamente"
+        };
+
+        let answers = {};
+
+        function getAtivacaoOptions() {
+            const nivelFuncional = answers.nivel_funcional;
+            if (nivelFuncional === "restrito_leito") {
+                return [
+                    { id: "nao_demonstra", emoji: "❌", titulo: "Não demonstra", desc: "Sem ativação postural" },
+                    { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Demonstra alguma ativação, com falhas" },
+                    { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Ativação postural adequada" }
+                ];
+            }
+            return [
+                { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Demonstra alguma ativação, com falhas" },
+                { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Ativação postural adequada" }
+            ];
+        }
+
+        function renderOptions(questionId) {
+            const options = questionId === "ativacao_postural" ? getAtivacaoOptions() : questions[questionId].options;
+            const container = document.getElementById(`opcoes-${questionId}`);
+
+            container.innerHTML = options.map(opt => `
+                <div class="option-card ${answers[questionId] === opt.id ? 'selected' : ''}" onclick="selectOption('${questionId}', '${opt.id}')">
+                    <div class="option-emoji">${opt.emoji}</div>
+                    <div class="option-content">
+                        <h3>${opt.titulo}</h3>
+                        <p>${opt.desc}</p>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        function selectOption(questionId, optionId) {
+            answers[questionId] = optionId;
+            renderOptions(questionId);
+            updateVisibility();
+            updateResult();
+        }
+
+        function updateVisibility() {
+            const hasElegibilidade = !!answers.elegibilidade;
+            const isNotNaoElegivel = answers.elegibilidade !== "nao_elegivel";
+            const isEstavel = answers.estabilidade === "estavel";
+            const isNotIrresponsivo = answers.neurologica !== "irresponsivo";
+            const hasNivelFuncional = !!answers.nivel_funcional;
+
+            document.getElementById("secao-estabilidade").classList.toggle("hidden", !hasElegibilidade || !isNotNaoElegivel);
+            document.getElementById("secao-neurologica").classList.toggle("hidden", !hasElegibilidade || !isNotNaoElegivel || !isEstavel);
+            document.getElementById("secao-nivel_funcional").classList.toggle("hidden", !hasElegibilidade || !isNotNaoElegivel || !isEstavel || !isNotIrresponsivo);
+            document.getElementById("secao-ativacao_postural").classList.toggle("hidden", !hasElegibilidade || !isNotNaoElegivel || !isEstavel || !isNotIrresponsivo || !hasNivelFuncional);
+
+            // Re-renderizar opções visíveis
+            if (hasElegibilidade && isNotNaoElegivel) renderOptions("estabilidade");
+            if (hasElegibilidade && isNotNaoElegivel && isEstavel) renderOptions("neurologica");
+            if (hasElegibilidade && isNotNaoElegivel && isEstavel && isNotIrresponsivo) renderOptions("nivel_funcional");
+            if (hasElegibilidade && isNotNaoElegivel && isEstavel && isNotIrresponsivo && hasNivelFuncional) renderOptions("ativacao_postural");
+        }
+
+        function calculateMetaFuncional() {
+            const p4 = answers.nivel_funcional;
+            const p5 = answers.ativacao_postural;
+
+            const metaMap = {
+                "restrito_leito|nao_demonstra": "Troca de decúbito com auxílio",
+                "restrito_leito|demonstra_falhas": "Independência no leito",
+                "restrito_leito|ativa_adequadamente": "Troca de decúbito independente",
+                "troca_decubitos|demonstra_falhas": "Sedestação com auxílio",
+                "troca_decubitos|ativa_adequadamente": "Sedestação independente",
+                "sedestacao|demonstra_falhas": "Bipedestação com auxílio",
+                "sedestacao|ativa_adequadamente": "Bipedestação independente",
+                "bipedestacao|demonstra_falhas": "Deambulação com auxílio",
+                "bipedestacao|ativa_adequadamente": "Deambulação independente",
+                "deambula|demonstra_falhas": "Deambulação funcional independente",
+                "deambula|ativa_adequadamente": "Deambulação funcional independente"
+            };
+
+            return metaMap[`${p4}|${p5}`] || "-";
+        }
+
+        function calculatePlan() {
+            const p1 = answers.elegibilidade;
+            const p2 = answers.estabilidade;
+            const p3 = answers.neurologica;
+            const p4 = answers.nivel_funcional;
+            const p5 = answers.ativacao_postural;
+
+            if (p1 === "nao_elegivel") {
+                return ["Reavaliar elegibilidade assim que possível"];
+            }
+
+            if (p2 === "instavel") {
+                if (p1 === "elegivel") {
+                    return ["Posicionar adequadamente o paciente", "Estimulação sensorial"];
+                } else {
+                    return ["Estimulação sensorial", "Mobilização passiva em padrão funcional", "Estímulos de carga em MMII", "Posicionar adequadamente"];
+                }
+            }
+
+            if (p3 === "irresponsivo") {
+                return ["Estimulação sensorial", "Mobilização passiva em padrão funcional", "Estímulos de carga em MMII", "Posicionar adequadamente"];
+            }
+
+            if (p4 === "restrito_leito" && p5 === "nao_demonstra") {
+                return [
+                    "Estimulação sensorial",
+                    "Estabilização central e de cinturas",
+                    "Ação antigravitária no leito",
+                    "Mobilização ativo-assistida com padrões funcionais",
+                    "Posicionamento adequado"
+                ];
+            }
+
+            if (p4 === "restrito_leito" && p5 === "demonstra_falhas") {
+                return [
+                    "Refino de estabilização",
+                    "Ação antigravitária no leito",
+                    "Padrões de alcance e apoio para mudanças de decúbito",
+                    "Evolução para posturas mais altas se possível"
+                ];
+            }
+
+            if (p4 === "restrito_leito" && p5 === "ativa_adequadamente") {
+                if (p3 === "orientado") {
+                    return [
+                        "Refino de estabilização",
+                        "Ação antigravitária no leito",
+                        "Padrões de alcance e apoio para mudanças de decúbito",
+                        "Evolução para posturas mais altas se possível"
+                    ];
+                } else {
+                    return [
+                        "Estimulação em posturas baixas",
+                        "Evolução para treino de estabilização na sedestação",
+                        "Treino de alcances e descarga de peso nos MMII"
+                    ];
+                }
+            }
+
+            if (p4 === "troca_decubitos" && p5 === "demonstra_falhas") {
+                return [
+                    "Refino de estabilização",
+                    "Ação antigravitária no leito",
+                    "Padrões de alcance para mudanças de decúbito",
+                    "Evolução para posturas mais altas se possível"
+                ];
+            }
+
+            if (p4 === "troca_decubitos" && p5 === "ativa_adequadamente") {
+                return [
+                    "Estimulação em posturas baixas",
+                    "Evolução para treino de estabilização na sedestação",
+                    "Treino de alcances e descarga de peso nos MMII"
+                ];
+            }
+
+            if (p4 === "sedestacao" && p5 === "demonstra_falhas") {
+                return [
+                    "Estimulação em posturas baixas",
+                    "Treino de estabilização na sedestação",
+                    "Treino de alcances",
+                    "Treino de descarga de peso nos MMII"
+                ];
+            }
+
+            if (p4 === "sedestacao" && p5 === "ativa_adequadamente") {
+                return [
+                    "Treino de alcances",
+                    "Treino de descarga de peso nos MMII",
+                    "Evolução para bipedestação"
+                ];
+            }
+
+            if (p4 === "bipedestacao" && p5 === "demonstra_falhas") {
+                return [
+                    "Estimulação em posturas mais baixas",
+                    "Treino de ação antigravitária",
+                    "Recrutamento de sinergias posturais",
+                    "Treino de alcances",
+                    "Evolução para unipodal se possível"
+                ];
+            }
+
+            if (p4 === "bipedestacao" && p5 === "ativa_adequadamente") {
+                return [
+                    "Treino unipodal",
+                    "Treino de marcha",
+                    "Agachamento (sentar/levantar)",
+                    "Treino de escadas"
+                ];
+            }
+
+            if (p4 === "deambula" && p5 === "demonstra_falhas") {
+                return [
+                    "Treino de marcha",
+                    "Agachamento (sentar/levantar)",
+                    "Treino de escadas",
+                    "Funcionalidade específica do paciente"
+                ];
+            }
+
+            if (p4 === "deambula" && p5 === "ativa_adequadamente") {
+                if (p3 === "orientado") {
+                    return [
+                        "Treino unipodal",
+                        "Treino de marcha",
+                        "Agachamento (sentar/levantar)",
+                        "Treino de escadas"
+                    ];
+                } else {
+                    return [
+                        "Treino de marcha",
+                        "Agachamento (sentar/levantar)",
+                        "Treino de escadas",
+                        "Funcionalidade específica do paciente"
+                    ];
+                }
+            }
+
+            return [];
+        }
+
+        function shouldShowResult() {
+            if (!answers.elegibilidade) return false;
+            if (answers.elegibilidade === "nao_elegivel") return true;
+            if (!answers.estabilidade) return false;
+            if (answers.estabilidade === "instavel") return true;
+            if (!answers.neurologica) return false;
+            if (answers.neurologica === "irresponsivo") return true;
+            if (!answers.nivel_funcional) return false;
+            if (!answers.ativacao_postural) return false;
+            return true;
+        }
+
+        function updateResult() {
+            const shouldShow = shouldShowResult();
+            document.getElementById("resultado").classList.toggle("hidden", !shouldShow);
+
+            if (shouldShow) {
+                const metaFuncional = calculateMetaFuncional();
+                const plan = calculatePlan();
+
+                document.getElementById("metaFuncional").textContent = metaFuncional;
+                document.getElementById("planList").innerHTML = plan.map(item => `<li>${item}</li>`).join("");
+
+                generateSummary();
+                generateProntuarioText(metaFuncional, plan);
+            }
+        }
+
+        function generateSummary() {
+            const summary = `
+                <strong>Elegibilidade:</strong> ${labels[answers.elegibilidade] || "—"}<br>
+                ${answers.estabilidade ? `<strong>Estabilidade:</strong> ${labels[answers.estabilidade]}<br>` : ""}
+                ${answers.neurologica ? `<strong>Neurológica:</strong> ${labels[answers.neurologica]}<br>` : ""}
+                ${answers.nivel_funcional ? `<strong>Nível funcional:</strong> ${labels[answers.nivel_funcional]}<br>` : ""}
+                ${answers.ativacao_postural ? `<strong>Ativação postural:</strong> ${labels[answers.ativacao_postural]}` : ""}
+            `;
+            document.getElementById("answersGrid").innerHTML = summary;
+        }
+
+        function generateProntuarioText(metaFuncional, plan) {
+            const text = `Avaliação Clínica - Guia de Estimulação Funcional
+
+Elegibilidade: ${labels[answers.elegibilidade]}
+Estabilidade: ${labels[answers.estabilidade] || "—"}
+Neurológica: ${labels[answers.neurologica] || "—"}
+Nível funcional: ${labels[answers.nivel_funcional] || "—"}
+Ativação postural: ${labels[answers.ativacao_postural] || "—"}
+
+Meta funcional: ${metaFuncional}
+
+Sugestões:
+${plan.map(item => `• ${item}`).join("\n")}`;
+
+            document.getElementById("textareaResult").value = text;
+        }
+
+        function copyToClipboard() {
+            const textarea = document.getElementById("textareaResult");
+            textarea.select();
+            document.execCommand("copy");
+
+            const feedback = document.createElement("div");
+            feedback.className = "copy-feedback";
+            feedback.textContent = "✓ Copiado com sucesso!";
+            document.body.appendChild(feedback);
+
+            setTimeout(() => feedback.remove(), 2000);
+        }
+
+        function resetForm() {
+            answers = {};
+            document.querySelectorAll(".form-section, .result-section").forEach(el => {
+                el.classList.add("hidden");
+            });
+            document.getElementById("secao-elegibilidade").classList.remove("hidden");
+            renderOptions("elegibilidade");
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("secao-elegibilidade").classList.remove("hidden");
+            renderOptions("elegibilidade");
+        });
+    </script>
+</body>
+</html>
