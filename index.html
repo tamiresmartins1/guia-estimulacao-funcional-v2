@@ -41,6 +41,7 @@
         header p {
             font-size: 15px;
             color: #6B7280;
+            font-weight: 500;
         }
 
         .form-container {
@@ -220,12 +221,13 @@
             border: none;
             background: transparent;
             font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 11px;
+            font-size: 12px;
             color: white;
             resize: none;
             outline: none;
-            line-height: 1.5;
-            max-height: 200px;
+            line-height: 1.6;
+            height: 350px;
+            max-height: 350px;
             overflow-y: auto;
         }
 
@@ -329,7 +331,7 @@
     <div class="container">
         <header>
             <h1>📋 Guia de Estimulação Funcional</h1>
-            <p>Calculadora clínica de fisioterapia</p>
+            <p>Divisão de Fisioterapia ICHC</p>
         </header>
 
         <div class="form-container" id="formContainer"></div>
@@ -343,9 +345,9 @@
                 titulo: "1. Elegibilidade do Paciente",
                 descricao: "Avalie se o paciente atende aos critérios de elegibilidade",
                 options: [
-                    { id: "elegivel", emoji: "✅", titulo: "Elegível", desc: "Paciente elegível" },
-                    { id: "elegivel_barreiras", emoji: "⚠️", titulo: "Elegível com barreiras", desc: "Atende critérios, mas apresenta barreiras" },
-                    { id: "nao_elegivel", emoji: "❌", titulo: "Não elegível", desc: "Não atende aos critérios" }
+                    { id: "elegivel", emoji: "✅", titulo: "Elegível", desc: "Atende critérios clínicos para programa de estimulação" },
+                    { id: "elegivel_barreiras", emoji: "⚠️", titulo: "Elegível com barreiras", desc: "Atende critérios, porém com limitações administrativas ou clínicas" },
+                    { id: "nao_elegivel", emoji: "❌", titulo: "Não elegível", desc: "Não cumpre critérios mínimos de elegibilidade" }
                 ],
                 showFn: () => true
             },
@@ -354,8 +356,8 @@
                 titulo: "2. Estabilidade Clínica",
                 descricao: "Avalie a estabilidade clínica do paciente",
                 options: [
-                    { id: "estavel", emoji: "💪", titulo: "Estável", desc: "Clinicamente estável" },
-                    { id: "instavel", emoji: "⚠️", titulo: "Instável", desc: "Clinicamente instável" }
+                    { id: "estavel", emoji: "💪", titulo: "Estável", desc: "Sem alterações vitais, clínica controlada" },
+                    { id: "instavel", emoji: "⚠️", titulo: "Instável", desc: "Alterações vitais, variabilidade clínica importante" }
                 ],
                 showFn: (answers) => answers.elegibilidade && answers.elegibilidade !== "nao_elegivel"
             },
@@ -364,9 +366,9 @@
                 titulo: "3. Avaliação Neurológica",
                 descricao: "Avalie o estado neurológico do paciente",
                 options: [
-                    { id: "orientado", emoji: "🧠", titulo: "Orientado", desc: "Orientado em tempo e espaço" },
-                    { id: "vigil_desorientado", emoji: "😴", titulo: "Vigil, mas desorientado", desc: "Acorda facilmente, mas desorientado" },
-                    { id: "irresponsivo", emoji: "🚨", titulo: "Irresponsivo", desc: "Sem resposta ou sem abertura ocular" }
+                    { id: "orientado", emoji: "🧠", titulo: "Orientado", desc: "Orienta-se em pessoa, espaço e tempo; comanda seguros" },
+                    { id: "vigil_desorientado", emoji: "😴", titulo: "Vigil, mas desorientado", desc: "Acorda com estímulo verbal/tátil, mas desorientado" },
+                    { id: "irresponsivo", emoji: "🚨", titulo: "Irresponsivo", desc: "Não responde a estímulos ou ausência de abertura ocular" }
                 ],
                 showFn: (answers) => answers.elegibilidade && answers.elegibilidade !== "nao_elegivel" && answers.estabilidade === "estavel"
             },
@@ -375,11 +377,11 @@
                 titulo: "4. Nível Funcional Atual",
                 descricao: "Indique o maior nível funcional que o paciente consegue realizar",
                 options: [
-                    { id: "restrito_leito", emoji: "🛏️", titulo: "Restrito ao leito", desc: "Não sai do leito" },
-                    { id: "troca_decubitos", emoji: "↔️", titulo: "Troca de decúbito", desc: "Realiza mudanças de posição" },
-                    { id: "sedestacao", emoji: "🪑", titulo: "Assume sedestação", desc: "Consegue ficar sentado" },
-                    { id: "bipedestacao", emoji: "🧑", titulo: "Assume bipedestação", desc: "Consegue ficar em pé" },
-                    { id: "deambula", emoji: "🚶", titulo: "Deambula", desc: "Consegue caminhar" }
+                    { id: "restrito_leito", emoji: "🛏️", titulo: "Restrito ao leito", desc: "Acamado, realiza mudanças de posição apenas com auxílio" },
+                    { id: "troca_decubitos", emoji: "↔️", titulo: "Troca de decúbito", desc: "Realiza mudanças de posição, orienta-se no leito" },
+                    { id: "sedestacao", emoji: "🪑", titulo: "Assume sedestação", desc: "Transferências para cadeira, permanece sentado com ou sem apoio" },
+                    { id: "bipedestacao", emoji: "🧑", titulo: "Assume bipedestação", desc: "Consegue ficar em pé com ou sem auxílio" },
+                    { id: "deambula", emoji: "🚶", titulo: "Deambula", desc: "Realiza marcha com ou sem dispositivo de auxílio" }
                 ],
                 showFn: (answers) => answers.elegibilidade && answers.elegibilidade !== "nao_elegivel" && answers.estabilidade === "estavel" && answers.neurologica && answers.neurologica !== "irresponsivo"
             },
@@ -417,14 +419,14 @@
             const nivelFuncional = answers.nivel_funcional;
             if (nivelFuncional === "restrito_leito") {
                 return [
-                    { id: "nao_demonstra", emoji: "❌", titulo: "Não demonstra", desc: "Sem ativação postural" },
-                    { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Demonstra alguma ativação, com falhas" },
-                    { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Ativação postural adequada" }
+                    { id: "nao_demonstra", emoji: "❌", titulo: "Não demonstra", desc: "Sem resposta postural aos estímulos" },
+                    { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Ativação presente mas com alterações de tônus/padrão" },
+                    { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Resposta postural adequada aos estímulos" }
                 ];
             }
             return [
-                { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Demonstra alguma ativação, com falhas" },
-                { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Ativação postural adequada" }
+                { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Ativação presente mas com deficiência de controle/sinergia" },
+                { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Controle postural adequado para o nível funcional" }
             ];
         }
 
