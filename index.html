@@ -344,9 +344,9 @@
                 titulo: "O paciente é elegível para a avaliação?",
                 descricao: "",
                 options: [
-                    { id: "elegivel", emoji: "👤", titulo: "Paciente elegível", desc: "Baixo risco, poucas barreiras" },
-                    { id: "elegivel_barreiras", emoji: "👤", titulo: "Elegível com barreiras", desc: "Benefícios presentes, mas riscos elevados" },
-                    { id: "nao_elegivel", emoji: "👤", titulo: "Não elegível", desc: "Riscos superam os benefícios" }
+                    { id: "elegivel", emoji: "🟢", titulo: "Paciente elegível", desc: "Baixo risco, poucas barreiras" },
+                    { id: "elegivel_barreiras", emoji: "🟡", titulo: "Elegível com barreiras", desc: "Benefícios presentes, mas riscos elevados" },
+                    { id: "nao_elegivel", emoji: "🔴", titulo: "Não elegível", desc: "Riscos superam os benefícios" }
                 ],
                 showFn: () => true
             },
@@ -365,9 +365,9 @@
                 titulo: "Como está a avaliação neurológica do paciente?",
                 descricao: "",
                 options: [
-                    { id: "orientado", emoji: "🧠", titulo: "Orientado", desc: "Glasgow 15, compreende comandos" },
-                    { id: "vigil_desorientado", emoji: "😴", titulo: "Vigil, mas desorientado", desc: "Colaborativo parcialmente — Glasgow 12–14" },
-                    { id: "irresponsivo", emoji: "🚨", titulo: "Irresponsivo", desc: "Coma; sedação profunda — Glasgow < 8" }
+                    { id: "orientado", emoji: "🟢", titulo: "Orientado", desc: "Glasgow 15, compreende comandos" },
+                    { id: "vigil_desorientado", emoji: "🟡", titulo: "Vigil, mas desorientado", desc: "Colaborativo parcialmente — Glasgow 12–14" },
+                    { id: "irresponsivo", emoji: "🔴", titulo: "Irresponsivo", desc: "Coma; sedação profunda — Glasgow < 8" }
                 ],
                 showFn: (answers) => answers.elegibilidade && answers.elegibilidade !== "nao_elegivel" && answers.estabilidade === "estavel"
             },
@@ -418,14 +418,14 @@
             const nivelFuncional = answers.nivel_funcional;
             if (nivelFuncional === "restrito_leito") {
                 return [
-                    { id: "nao_demonstra", emoji: "❌", titulo: "Não demonstra", desc: "Sem resposta postural aos estímulos" },
-                    { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Ativação presente mas com alterações de tônus/padrão" },
-                    { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Resposta postural adequada aos estímulos" }
+                    { id: "nao_demonstra", emoji: "🔴", titulo: "Não demonstra", desc: "Sem resposta postural aos estímulos" },
+                    { id: "demonstra_falhas", emoji: "🟡", titulo: "Com falhas", desc: "Ativação presente mas com alterações de tônus/padrão" },
+                    { id: "ativa_adequadamente", emoji: "🟢", titulo: "Ativa adequadamente", desc: "Resposta postural adequada aos estímulos" }
                 ];
             }
             return [
-                { id: "demonstra_falhas", emoji: "⚠️", titulo: "Com falhas", desc: "Ativação presente mas com deficiência de controle/sinergia" },
-                { id: "ativa_adequadamente", emoji: "✅", titulo: "Ativa adequadamente", desc: "Controle postural adequado para o nível funcional" }
+                { id: "demonstra_falhas", emoji: "🟡", titulo: "Com falhas", desc: "Ativação presente mas com deficiência de controle/sinergia" },
+                { id: "ativa_adequadamente", emoji: "🟢", titulo: "Ativa adequadamente", desc: "Controle postural adequado para o nível funcional" }
             ];
         }
 
